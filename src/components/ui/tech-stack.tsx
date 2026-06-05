@@ -8,8 +8,8 @@ export const TechStack = () => {
   const [showMore, setShowMore] = useState(false);
   const displayTech = showMore ? techStack : techStack.slice(0, 12);
   return (
-    <section className="bg-bg-primary py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="bg-bg-primary py-16 sm:py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="section-header">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
@@ -29,7 +29,7 @@ export const TechStack = () => {
           </motion.p>
         </div>
         
-        <div className="mx-auto mt-16 max-w-6xl grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 sm:gap-6">
+        <div className="mx-auto mt-10 sm:mt-16 max-w-6xl grid grid-cols-3 gap-3 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 sm:gap-4 lg:gap-6">
           <AnimatePresence>
             {displayTech.map((tech, index) => (
               <motion.div
@@ -38,17 +38,17 @@ export const TechStack = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3, delay: (index % 10) * 0.03 }}
-                className="flex flex-col items-center justify-center rounded-2xl border border-border bg-bg-card p-6 shadow-sm backdrop-blur-sm transition-all hover:border-accent hover:bg-bg-card/80 hover:-translate-y-1"
+                className="flex flex-col items-center justify-center rounded-xl sm:rounded-2xl border border-border bg-bg-card p-3 sm:p-5 lg:p-6 shadow-sm backdrop-blur-sm transition-all hover:border-accent hover:bg-bg-card/80 hover:-translate-y-1"
               >
                 <img
                   src={tech.icon}
                   alt={`${tech.name} logo`}
-                  className="h-10 w-10 sm:h-12 sm:w-12 object-contain"
+                  className="h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 object-contain"
                   style={{
                     filter: tech.color === "#ffffff" ? "invert(1)" : "none",
                   }}
                 />
-                <span className="mt-3 text-xs sm:text-sm font-medium text-text-primary text-center leading-tight">
+                <span className="mt-2 sm:mt-3 text-[10px] sm:text-xs lg:text-sm font-medium text-text-primary text-center leading-tight">
                   {tech.name}
                 </span>
               </motion.div>

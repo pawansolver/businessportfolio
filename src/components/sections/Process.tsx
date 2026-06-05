@@ -7,13 +7,13 @@ import { processSteps } from "@/data/process";
 
 export default function Process() {
   return (
-    <section id="process" className="py-24">
+    <section id="process" className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <SectionHeading title="My Development Process" />
         </FadeIn>
 
-        <div className="relative mt-16">
+        <div className="relative mt-10 sm:mt-16">
           <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-border lg:block" />
 
           <div className="grid gap-8 lg:grid-cols-4">

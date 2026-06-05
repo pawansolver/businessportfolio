@@ -22,9 +22,18 @@ import {
 } from "lucide-react";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-const CARD_WIDTH = 360;   // px — each project card
-const CARD_GAP   = 24;    // px — gap between cards
+const CARD_GAP   = 16;    // px — gap between cards (sm: 24)
 const SLIDE_INTERVAL = 1500; // ms — image auto-advance
+
+/** Calculate card width based on viewport — keeps card visible on every screen */
+const getCardWidth = () => {
+  if (typeof window === "undefined") return 320;
+  const w = window.innerWidth;
+  if (w < 480) return Math.min(300, w - 48); // tight mobile
+  if (w < 640) return 320;
+  if (w < 1024) return 340;
+  return 360;
+};
 
 const isVideoFile = (url: string) => /\.(mp4|webm|ogg)$/i.test(url);
 
@@ -299,7 +308,7 @@ function ProjectDetail({
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
         transition={{ type: "spring", stiffness: 300, damping: 32 }}
-        className="fixed right-0 top-0 bottom-0 z-50 w-full max-w-xl bg-bg-card border-l border-border overflow-y-auto"
+        className="fixed right-0 top-0 bottom-0 z-50 w-full sm:max-w-xl bg-bg-card border-l border-border overflow-y-auto overscroll-contain"
       >
         {/* Header */}
         <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-bg-card/95 backdrop-blur-sm border-b border-border">
@@ -433,16 +442,18 @@ function ProjectCard({
   project,
   isActive,
   onClick,
+  cardWidth,
 }: {
   project: Project;
   isActive: boolean;
   onClick: () => void;
+  cardWidth: number;
 }) {
   const imgs = project.images?.length ? project.images : [project.image];
 
   return (
     <motion.article
-      style={{ width: CARD_WIDTH }}
+      style={{ width: cardWidth }}
       className="flex-shrink-0 rounded-2xl border border-border bg-bg-card overflow-hidden cursor-pointer group"
       animate={{ scale: isActive ? 1 : 0.95, opacity: isActive ? 1 : 0.65 }}
       transition={{ duration: 0.3 }}
@@ -497,14 +508,17 @@ export default function Projects() {
   const [activeIdx, setActiveIdx]       = useState(0);
   const [openProject, setOpenProject]   = useState<Project | null>(null);
   const [minX, setMinX]                 = useState(0);
+  const [cardWidth, setCardWidth]       = useState(360);
   const trackRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const total = DISPLAY_PROJECTS.length;
 
   const updateMinX = useCallback(() => {
     if (!trackRef.current) return;
+    const cw = getCardWidth();
+    setCardWidth(cw);
     const containerW = trackRef.current.offsetWidth;
-    const trackWidth = total * CARD_WIDTH + (total - 1) * CARD_GAP;
+    const trackWidth = total * cw + (total - 1) * CARD_GAP;
     setMinX(Math.min(0, containerW - trackWidth));
   }, [total]);
 
@@ -520,10 +534,10 @@ export default function Projects() {
       const clamped = Math.max(0, Math.min(idx, total - 1));
       setActiveIdx(clamped);
 
-      const offset = Math.max(minX, -(clamped * (CARD_WIDTH + CARD_GAP)));
+      const offset = Math.max(minX, -(clamped * (cardWidth + CARD_GAP)));
       animate(x, offset, { type: "spring", stiffness: 280, damping: 30 });
     },
-    [total, minX, x]
+    [total, minX, x, cardWidth]
   );
 
   // Initial scroll
@@ -534,7 +548,7 @@ export default function Projects() {
   // Drag end snap
   const handleDragEnd = useCallback(
     (_: unknown, info: { offset: { x: number } }) => {
-      const threshold = CARD_WIDTH / 3;
+      const threshold = cardWidth / 3;
       if (info.offset.x < -threshold) {
         scrollTo(activeIdx + 1);
       } else if (info.offset.x > threshold) {
@@ -543,7 +557,7 @@ export default function Projects() {
         scrollTo(activeIdx);
       }
     },
-    [activeIdx, scrollTo]
+    [activeIdx, scrollTo, cardWidth]
   );
 
   const scrollToDot = useCallback(
@@ -569,20 +583,20 @@ export default function Projects() {
     [activeIdx, total, scrollTo]
   );
 
-  const isAtEnd = -(activeIdx * (CARD_WIDTH + CARD_GAP)) <= minX;
+  const isAtEnd = -(activeIdx * (cardWidth + CARD_GAP)) <= minX;
 
   return (
-    <section id="projects" className="bg-bg-secondary py-24 overflow-hidden">
+    <section id="projects" className="bg-bg-secondary py-16 sm:py-24 overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <SectionHeading title="Featured Projects" />
-          <p className="mt-3 text-center text-sm text-text-secondary">
-            Drag or use arrows to browse · Click a card to see full details
+          <p className="mt-3 text-center text-xs sm:text-sm text-text-secondary px-2">
+            Drag or use arrows to browse · Tap a card to see full details
           </p>
         </FadeIn>
 
         {/* ── Carousel track ── */}
-        <div className="relative mt-12" ref={trackRef}>
+        <div className="relative mt-8 sm:mt-12" ref={trackRef}>
           <motion.div
             style={{ x }}
             drag="x"
@@ -592,13 +606,14 @@ export default function Projects() {
             }}
             dragElastic={0.12}
             onDragEnd={handleDragEnd}
-            className="flex gap-6 cursor-grab active:cursor-grabbing select-none"
+            className="flex gap-4 sm:gap-6 cursor-grab active:cursor-grabbing select-none touch-pan-y"
           >
             {DISPLAY_PROJECTS.map((project, i) => (
               <ProjectCard
                 key={`${project.id}-${i}`}
                 project={project}
                 isActive={i === activeIdx}
+                cardWidth={cardWidth}
                 onClick={() => setOpenProject(project)}
               />
             ))}

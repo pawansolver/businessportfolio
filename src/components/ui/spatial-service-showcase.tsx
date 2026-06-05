@@ -208,7 +208,7 @@ function ServiceVisual({ item, fromLeft }: { item: ServiceShowcaseItem; fromLeft
       />
 
       {/* Image circle */}
-      <div className="relative h-60 w-60 md:h-[280px] md:w-[280px] rounded-full border border-white/[0.06] shadow-2xl flex items-center justify-center overflow-hidden bg-black/30 backdrop-blur-sm">
+      <div className="relative h-44 w-44 sm:h-56 sm:w-56 md:h-[280px] md:w-[280px] rounded-full border border-white/[0.06] shadow-2xl flex items-center justify-center overflow-hidden bg-black/30 backdrop-blur-sm">
         <motion.div
           animate={{ y: [-6, 6, -6] }}
           transition={{ repeat: Infinity, duration: 7, ease: 'easeInOut' }}
@@ -249,9 +249,7 @@ function ServiceVisual({ item, fromLeft }: { item: ServiceShowcaseItem; fromLeft
 }
 
 function ServiceDetails({ item, fromLeft }: { item: ServiceShowcaseItem; fromLeft: boolean }) {
-  const align = fromLeft ? 'items-start text-left' : 'items-end text-right';
-  const rowDir = fromLeft ? 'flex-row' : 'flex-row-reverse';
-
+  // On mobile (< md), always left-align; on desktop, alternate per item
   return (
     <motion.div
       key={item.id}
@@ -259,7 +257,7 @@ function ServiceDetails({ item, fromLeft }: { item: ServiceShowcaseItem; fromLef
       initial="hidden"
       animate="visible"
       exit="exit"
-      className={`flex flex-col ${align} w-full`}
+      className={`flex flex-col items-start text-left ${fromLeft ? 'md:items-start md:text-left' : 'md:items-end md:text-right'} w-full`}
     >
       {/* Label */}
       <motion.p variants={VARIANTS.item} className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500 mb-2">
@@ -267,19 +265,19 @@ function ServiceDetails({ item, fromLeft }: { item: ServiceShowcaseItem; fromLef
       </motion.p>
 
       {/* Title */}
-      <motion.h2 variants={VARIANTS.item} className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-500 leading-tight">
+      <motion.h2 variants={VARIANTS.item} className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-500 leading-tight">
         {item.title}
       </motion.h2>
 
       {/* Description */}
-      <motion.p variants={VARIANTS.item} className={`text-zinc-400 text-xs md:text-sm leading-relaxed mb-4 max-w-sm ${fromLeft ? 'mr-auto' : 'ml-auto'}`}>
+      <motion.p variants={VARIANTS.item} className={`text-zinc-400 text-xs md:text-sm leading-relaxed mb-4 max-w-sm mr-auto ${fromLeft ? 'md:mr-auto' : 'md:ml-auto'}`}>
         {item.description}
       </motion.p>
 
       {/* Bullets */}
-      <motion.ul variants={VARIANTS.item} className={`mb-4 space-y-1.5 ${fromLeft ? 'mr-auto' : 'ml-auto'}`}>
+      <motion.ul variants={VARIANTS.item} className={`mb-4 space-y-1.5 mr-auto ${fromLeft ? 'md:mr-auto' : 'md:ml-auto'}`}>
         {item.bullets.map((b) => (
-          <li key={b} className={`flex items-center gap-2 text-xs text-zinc-300 ${fromLeft ? '' : 'flex-row-reverse'}`}>
+          <li key={b} className={`flex items-center gap-2 text-xs text-zinc-300 ${fromLeft ? '' : 'md:flex-row-reverse'}`}>
             <span className={`h-1.5 w-1.5 rounded-full flex-shrink-0 ${item.colors.glow}`} />
             {b}
           </li>
@@ -290,7 +288,7 @@ function ServiceDetails({ item, fromLeft }: { item: ServiceShowcaseItem; fromLef
       <motion.div variants={VARIANTS.item} className="w-full space-y-3.5 bg-zinc-900/50 p-4 rounded-xl border border-white/[0.06] backdrop-blur-sm">
         {item.features.map((feat, idx) => (
           <div key={feat.label}>
-            <div className={`flex items-center justify-between mb-1.5 text-xs ${rowDir}`}>
+            <div className={`flex items-center justify-between mb-1.5 text-xs ${fromLeft ? '' : 'md:flex-row-reverse'}`}>
               <div className="flex items-center gap-1.5 text-zinc-200">
                 <feat.icon size={13} />
                 <span>{feat.label}</span>
@@ -302,14 +300,13 @@ function ServiceDetails({ item, fromLeft }: { item: ServiceShowcaseItem; fromLef
                 initial={{ width: 0 }}
                 animate={{ width: `${feat.value}%` }}
                 transition={{ duration: 1.1, delay: 0.35 + idx * 0.12, ease: 'easeOut' }}
-                className={`absolute top-0 bottom-0 ${item.colors.barColor} opacity-90 rounded-full`}
-                style={{ [fromLeft ? 'left' : 'right']: 0 }}
+                className={`absolute top-0 bottom-0 left-0 ${item.colors.barColor} opacity-90 rounded-full`}
               />
             </div>
           </div>
         ))}
 
-        <div className={`pt-2 flex ${fromLeft ? 'justify-start' : 'justify-end'}`}>
+        <div className={`pt-2 flex justify-start ${fromLeft ? 'md:justify-start' : 'md:justify-end'}`}>
           <button
             type="button"
             className="flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider text-zinc-300 hover:text-white transition-colors group"
@@ -322,7 +319,7 @@ function ServiceDetails({ item, fromLeft }: { item: ServiceShowcaseItem; fromLef
       </motion.div>
 
       {/* Delivery note */}
-      <motion.div variants={VARIANTS.item} className={`mt-3.5 flex items-center gap-1.5 text-zinc-500 ${rowDir}`}>
+      <motion.div variants={VARIANTS.item} className={`mt-3.5 flex items-center gap-1.5 text-zinc-500 ${fromLeft ? '' : 'md:flex-row-reverse'}`}>
         <Clock size={12} />
         <span className="text-[10px] font-medium">Fast Turnaround · Fixed Price</span>
       </motion.div>
@@ -344,17 +341,17 @@ function ServiceSwitcher({
   onSelect: (i: number) => void;
 }) {
   return (
-    <div className="absolute bottom-5 inset-x-0 flex justify-center z-30 pointer-events-none">
+    <div className="absolute bottom-5 inset-x-0 flex justify-center px-3 z-30 pointer-events-none">
       <motion.div
         layout
-        className="pointer-events-auto flex items-center gap-1 p-1 rounded-full bg-zinc-900/80 backdrop-blur-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.7)] ring-1 ring-white/[0.05]"
+        className="pointer-events-auto flex items-center gap-1 p-1 rounded-full bg-zinc-900/80 backdrop-blur-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.7)] ring-1 ring-white/[0.05] max-w-full overflow-x-auto scrollbar-none"
       >
         {items.map((item, i) => (
           <motion.button
             key={item.id}
             onClick={() => onSelect(i)}
             whileTap={{ scale: 0.94 }}
-            className="relative px-4 h-9 rounded-full flex items-center justify-center text-xs font-medium focus:outline-none"
+            className="relative px-3 sm:px-4 h-8 sm:h-9 rounded-full flex items-center justify-center text-[11px] sm:text-xs font-medium focus:outline-none whitespace-nowrap shrink-0"
           >
             {activeIndex === i && (
               <motion.div
@@ -400,7 +397,7 @@ export default function SpatialServiceShowcase({ services }: SpatialServiceShowc
   const fromLeft = activeIndex % 2 === 0;
 
   return (
-    <div className="relative w-full min-h-[500px] bg-[#000000] text-zinc-100 overflow-hidden flex flex-col items-center justify-center rounded-2xl border border-white/[0.05]">
+    <div className="relative w-full min-h-[600px] sm:min-h-[500px] bg-[#000000] text-zinc-100 overflow-hidden flex flex-col items-center justify-center rounded-2xl border border-white/[0.05]">
       {/* Dynamic ambient orb */}
       <BackgroundOrb hex={current.colors.glowHex} />
 
@@ -414,7 +411,7 @@ export default function SpatialServiceShowcase({ services }: SpatialServiceShowc
         }}
       />
 
-      <main className="relative z-10 w-full px-4 md:px-8 py-10 pb-20 max-w-5xl mx-auto">
+      <main className="relative z-10 w-full px-4 md:px-8 py-8 sm:py-10 pb-24 sm:pb-20 max-w-5xl mx-auto">
         <motion.div
           layout
           transition={{ type: 'spring', bounce: 0, duration: 0.85 }}

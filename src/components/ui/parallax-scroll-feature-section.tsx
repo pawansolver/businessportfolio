@@ -57,31 +57,31 @@ export default function ParallaxScrollFeatureSection() {
     const translateContents = [translate1, translate2, translate3];
 
   return (
-    <section id="about" className="bg-bg-primary text-text-primary overflow-hidden pb-32">
-      <div className='min-h-[70vh] w-full flex flex-col items-center justify-center section-header'>
+    <section id="about" className="bg-bg-primary text-text-primary overflow-hidden pb-16 sm:pb-32">
+      <div className='min-h-[50vh] sm:min-h-[70vh] w-full flex flex-col items-center justify-center section-header py-16 sm:py-24'>
         <h2 className='section-heading'>
           About Me
         </h2>
-        <p className='section-subheading mt-6 max-w-3xl'>
+        <p className='section-subheading mt-4 sm:mt-6 max-w-3xl'>
           Transforming Ideas into Reality
         </p>
-        <p className='mt-16 flex items-center gap-2 text-sm tracking-widest text-text-secondary animate-pulse'>
+        <p className='mt-10 sm:mt-16 flex items-center gap-2 text-xs sm:text-sm tracking-widest text-text-secondary animate-pulse'>
           SCROLL <ArrowDown size={16} />
         </p>
       </div>
 
-       <div className="flex flex-col md:px-0 px-6 max-w-7xl mx-auto">
+       <div className="flex flex-col px-4 sm:px-6 md:px-0 max-w-7xl mx-auto">
             {sections.map((section, index) => (
                 <div 
                     key={section.id}
                     ref={sectionRefs[index]} 
-                    className={`min-h-[80vh] flex flex-col md:flex-row items-center justify-center md:gap-32 gap-16 py-20 ${section.reverse ? 'md:flex-row-reverse' : ''}`}
+                    className={`min-h-[60vh] sm:min-h-[80vh] flex flex-col md:flex-row items-center justify-center gap-10 md:gap-32 py-12 sm:py-20 ${section.reverse ? 'md:flex-row-reverse' : ''}`}
                 >
-                    <motion.div style={{ y: translateContents[index] }} className="flex-1">
-                        <div className="text-4xl md:text-6xl font-bold">{section.title}</div>
+                    <motion.div style={{ y: translateContents[index] }} className="flex-1 w-full">
+                        <div className="text-3xl sm:text-4xl md:text-6xl font-bold leading-tight">{section.title}</div>
                         <motion.p 
                             style={{ y: translateContents[index] }} 
-                            className="text-text-secondary text-lg md:text-xl leading-relaxed max-w-lg mt-8"
+                            className="text-text-secondary text-base sm:text-lg md:text-xl leading-relaxed max-w-lg mt-4 sm:mt-8"
                         >
                             {section.description}
                         </motion.p>
@@ -94,7 +94,7 @@ export default function ParallaxScrollFeatureSection() {
                         }}
                         className="relative flex-1 w-full flex justify-center"
                     >
-                        <div className="relative w-full max-w-md aspect-square rounded-3xl overflow-hidden border border-border shadow-2xl">
+                        <div className="relative w-full max-w-xs sm:max-w-md aspect-square rounded-2xl sm:rounded-3xl overflow-hidden border border-border shadow-2xl">
                           <div className="absolute inset-0 bg-accent/10 mix-blend-overlay z-10" />
                           <img 
                               src={section.imageUrl} 

@@ -75,19 +75,19 @@ export default function Contact() {
     `${inputBase} ${focused === field ? "border-accent shadow-[0_0_0_2px_rgba(212,255,0,0.1)]" : "border-border hover:border-border-hover"}`;
 
   return (
-    <section id="contact" className="relative bg-bg-primary py-20 overflow-hidden">
+    <section id="contact" className="relative bg-bg-primary py-14 sm:py-20 overflow-hidden">
       {/* subtle glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-accent/4 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[200px] sm:h-[300px] bg-accent/4 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <SectionHeading title="Get in Touch" subtitle="Have a project in mind? Let's build something great together." />
         </FadeIn>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:gap-8">
+        <div className="mt-8 sm:mt-10 grid gap-5 sm:gap-6 lg:grid-cols-2 lg:gap-8">
           {/* ── Left: Info + Channels ── */}
           <FadeIn direction="right" className="h-full">
-            <div className="relative h-full flex flex-col justify-center rounded-2xl border border-border bg-bg-card overflow-hidden p-6 sm:p-8">
+            <div className="relative h-full flex flex-col justify-center rounded-2xl border border-border bg-bg-card overflow-hidden p-5 sm:p-8">
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
               
               <div className="flex flex-col gap-8">
@@ -139,7 +139,7 @@ export default function Contact() {
             <div className="relative h-full flex flex-col justify-center rounded-2xl border border-border bg-bg-card overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
 
-              <div className="p-6 sm:p-8">
+              <div className="p-5 sm:p-8">
                 <AnimatePresence mode="wait">
                   {submitted ? (
                     <motion.div

@@ -40,6 +40,15 @@ body {
   overflow-x: hidden;
 }
 
+/* Hide scrollbars but allow scrolling — used in horizontal switchers/strips */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 ::selection {
   background: #D4FF0033;
   color: #ffffff;
