@@ -1,0 +1,289 @@
+export interface TechItem {
+  name: string;
+  category: string;
+  icon: string; // URL to SVG icon
+  color: string; // brand accent color for glow
+}
+
+export const techStack: TechItem[] = [
+  // ── Frontend ──────────────────────────────────────────────────────────────
+  {
+    name: "Next.js",
+    category: "Frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    color: "#ffffff",
+  },
+  {
+    name: "React",
+    category: "Frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    color: "#61DAFB",
+  },
+  {
+    name: "TypeScript",
+    category: "Frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    color: "#3178C6",
+  },
+  {
+    name: "JavaScript",
+    category: "Frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    color: "#F7DF1E",
+  },
+  {
+    name: "Tailwind CSS",
+    category: "Frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    color: "#06B6D4",
+  },
+  {
+    name: "HTML5",
+    category: "Frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    color: "#E34F26",
+  },
+  {
+    name: "CSS3",
+    category: "Frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    color: "#1572B6",
+  },
+  {
+    name: "Framer Motion",
+    category: "Frontend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/framermotion/framermotion-original.svg",
+    color: "#0055FF",
+  },
+
+  // ── Backend ───────────────────────────────────────────────────────────────
+  {
+    name: "Node.js",
+    category: "Backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    color: "#339933",
+  },
+  {
+    name: "Express.js",
+    category: "Backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    color: "#ffffff",
+  },
+  {
+    name: "REST API",
+    category: "Backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+    color: "#009688",
+  },
+  {
+    name: "JWT Auth",
+    category: "Backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg",
+    color: "#F7DF1E",
+  },
+  {
+    name: "Socket.io",
+    category: "Backend",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg",
+    color: "#ffffff",
+  },
+
+  // ── Database ──────────────────────────────────────────────────────────────
+  {
+    name: "MongoDB",
+    category: "Database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    color: "#47A248",
+  },
+  {
+    name: "MySQL",
+    category: "Database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    color: "#4479A1",
+  },
+  {
+    name: "PostgreSQL",
+    category: "Database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    color: "#336791",
+  },
+  {
+    name: "Redis",
+    category: "Database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+    color: "#DC382D",
+  },
+  {
+    name: "Prisma",
+    category: "Database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
+    color: "#2D3748",
+  },
+  {
+    name: "Mongoose",
+    category: "Database",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongoose/mongoose-original.svg",
+    color: "#880000",
+  },
+
+  // ── Deployment & DevOps ───────────────────────────────────────────────────
+  {
+    name: "Vercel",
+    category: "Deployment",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+    color: "#ffffff",
+  },
+  {
+    name: "Docker",
+    category: "Deployment",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    color: "#2496ED",
+  },
+  {
+    name: "GitHub Actions",
+    category: "Deployment",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg",
+    color: "#2088FF",
+  },
+  {
+    name: "Nginx",
+    category: "Deployment",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg",
+    color: "#009639",
+  },
+  {
+    name: "AWS",
+    category: "Deployment",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+    color: "#FF9900",
+  },
+
+  // ── Testing ───────────────────────────────────────────────────────────────
+  {
+    name: "Jest",
+    category: "Testing",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg",
+    color: "#C21325",
+  },
+  {
+    name: "Postman",
+    category: "Testing",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
+    color: "#FF6C37",
+  },
+
+  // ── Libraries & Frameworks ────────────────────────────────────────────────
+  {
+    name: "Shadcn UI",
+    category: "Libraries",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    color: "#ffffff",
+  },
+  {
+    name: "Three.js",
+    category: "Libraries",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg",
+    color: "#ffffff",
+  },
+  {
+    name: "Chart.js",
+    category: "Libraries",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chartjs/chartjs-original.svg",
+    color: "#FF6384",
+  },
+  {
+    name: "Axios",
+    category: "Libraries",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-plain.svg",
+    color: "#5A29E4",
+  },
+  {
+    name: "Zod",
+    category: "Libraries",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    color: "#3E67B1",
+  },
+  {
+    name: "Redux",
+    category: "Libraries",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+    color: "#764ABC",
+  },
+
+  // ── IDE & Tools ───────────────────────────────────────────────────────────
+  {
+    name: "VS Code",
+    category: "IDE & Tools",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+    color: "#007ACC",
+  },
+  {
+    name: "Git",
+    category: "IDE & Tools",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    color: "#F05032",
+  },
+  {
+    name: "GitHub",
+    category: "IDE & Tools",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    color: "#ffffff",
+  },
+  {
+    name: "Figma",
+    category: "IDE & Tools",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+    color: "#F24E1E",
+  },
+  {
+    name: "npm",
+    category: "IDE & Tools",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg",
+    color: "#CB3837",
+  },
+
+  // ── AI & Productivity ─────────────────────────────────────────────────────
+  {
+    name: "ChatGPT",
+    category: "AI & Apps",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/openal/openal-original.svg",
+    color: "#10a37f",
+  },
+  {
+    name: "GitHub Copilot",
+    category: "AI & Apps",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    color: "#ffffff",
+  },
+  {
+    name: "Vercel AI SDK",
+    category: "AI & Apps",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+    color: "#ffffff",
+  },
+  {
+    name: "Notion",
+    category: "AI & Apps",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg",
+    color: "#ffffff",
+  },
+  {
+    name: "Slack",
+    category: "AI & Apps",
+    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg",
+    color: "#4A154B",
+  },
+];
+
+export const techCategories = [
+  "Frontend",
+  "Backend",
+  "Database",
+  "Deployment",
+  "Testing",
+  "Libraries",
+  "IDE & Tools",
+  "AI & Apps",
+] as const;
+
+export type TechCategory = (typeof techCategories)[number];

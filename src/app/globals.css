@@ -1,0 +1,414 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #0a0a0a;
+  --color-bg-card: #141414;
+  --color-accent: #D4FF00;
+  --color-accent-dim: #D4FF0033;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a1a1aa;
+  --color-border: #ffffff0d;
+  --color-border-hover: #D4FF0066;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-inter), sans-serif;
+}
+
+/* shadcn-compatible CSS vars — used by CircleMenu and other ui primitives */
+:root {
+  --foreground: #ffffff;
+  --background: #000000;
+  --muted: #1a1a1a;
+  --muted-foreground: #a1a1aa;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  @apply bg-bg-primary text-text-primary antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #D4FF0033;
+  color: #ffffff;
+}
+
+@layer components {
+  .section-heading {
+    @apply text-3xl sm:text-4xl md:text-4xl font-black text-accent uppercase tracking-tight text-center;
+  }
+
+  .section-subheading {
+    @apply mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-text-secondary font-medium text-center max-w-3xl mx-auto tracking-wide;
+  }
+
+  .section-header {
+    @apply flex flex-col items-center justify-center w-full mb-12 md:mb-16 px-4;
+  }
+}
+
+.glass {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(20, 20, 20, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glow-accent {
+  box-shadow: 0 0 40px rgba(212, 255, 0, 0.15);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, #D4FF00 0%, #a8cc00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #D4FF00;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.card-glow-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-glow-hover:hover {
+  transform: scale(1.02);
+  border-color: rgba(212, 255, 0, 0.4);
+  box-shadow: 0 0 30px rgba(212, 255, 0, 0.12);
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* Hero Futuristic animations */
+@keyframes heroFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) skewX(-2deg);
+    filter: blur(6px);
+  }
+
+  60% {
+    opacity: 0.8;
+    filter: blur(1px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) skewX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes heroFadeInSubtitle {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+    letter-spacing: 0.2em;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: normal;
+  }
+}
+
+@keyframes heroExploreBtn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes heroArrowBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.hero-fade-in {
+  animation: heroFadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-fade-in-subtitle {
+  animation: heroFadeInSubtitle 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-badge {
+  animation: heroFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-explore-btn {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 0.625rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  cursor: pointer;
+  opacity: 0;
+  animation: heroExploreBtn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-explore-btn:hover {
+  border-color: rgba(212, 255, 0, 0.4);
+  box-shadow: 0 0 20px rgba(212, 255, 0, 0.15);
+}
+
+.hero-explore-arrow {
+  display: flex;
+  animation: heroArrowBounce 1.5s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────
+   WhatsApp Sticky Button
+───────────────────────────────────────── */
+.wa-button {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #25d366 0%, #128c5e 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 24px rgba(37, 211, 102, 0.45), 0 0 0 0 rgba(37, 211, 102, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.wa-button:hover {
+  box-shadow: 0 6px 32px rgba(37, 211, 102, 0.6), 0 0 40px rgba(37, 211, 102, 0.25);
+}
+
+/* Ping rings */
+.wa-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid rgba(37, 211, 102, 0.55);
+  pointer-events: none;
+  animation: waPing 2.4s ease-out infinite;
+}
+.wa-ring-2 {
+  animation-delay: 0.6s;
+}
+.wa-ring-3 {
+  animation-delay: 1.2s;
+}
+
+@keyframes waPing {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Tooltip */
+.wa-tooltip {
+  position: absolute;
+  right: calc(100% + 14px);
+  top:50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  border-radius: 12px;
+  background: rgba(17, 17, 17, 0.95);
+  border: 1px solid rgba(37, 211, 102, 0.25);
+  backdrop-filter: blur(16px);
+  padding: 10px 14px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.wa-tooltip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #25d366;
+  flex-shrink: 0;
+  animation: waDotPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes waDotPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.wa-tooltip-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.wa-tooltip-phone {
+  font-size: 11px;
+  color: #25d366;
+  margin-top: 3px;
+  font-family: monospace;
+}
+
+/* Arrow pointing right */
+.wa-tooltip-arrow {
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 7px solid rgba(17, 17, 17, 0.95);
+}
+
+/* Online label below button */
+.wa-label {
+  position: absolute;
+  bottom: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 500;
+  color: #25d366;
+  background: rgba(37, 211, 102, 0.1);
+  border: 1px solid rgba(37, 211, 102, 0.2);
+  border-radius: 9999px;
+  padding: 2px 8px;
+}
+
+/* ─────────────────────────────────────────
+   Book Call Button shimmer (Desktop)
+───────────────────────────────────────── */
+.book-call-btn {
+  position: relative;
+  overflow: hidden;
+}
+.book-call-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: transform 0s;
+}
+.book-call-btn:hover::after {
+  transform: translateX(100%);
+  transition: transform 0.5s ease;
+}
