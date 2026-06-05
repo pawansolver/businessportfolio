@@ -50,7 +50,7 @@ const PRODUCT_DATA: Record<ProductId, ProductData> = {
     label: 'Left',
     title: 'Spatial Anchor',
     description: 'The primary node for binaural synchronization. Handles low-latency transmission and anchors the spatial audio soundstage.',
-    image: 'https://ik.imagekit.io/kqmrslzuq/SOUND/left-earbud.png',
+    image: '/product/left-earbud.png',
     colors: {
       gradient: 'from-blue-600 to-indigo-900',
       glow: 'bg-blue-500',
@@ -67,7 +67,7 @@ const PRODUCT_DATA: Record<ProductId, ProductData> = {
     label: 'Right',
     title: 'Vocal Clarity',
     description: 'Optimized for high-frequency detail and voice pickup. Contains the beamforming microphone array for crystal clear calls.',
-    image: 'https://ik.imagekit.io/kqmrslzuq/SOUND/right-earbud.png',
+    image: '/product/right-earbud.png',
     colors: {
       gradient: 'from-emerald-600 to-teal-900',
       glow: 'bg-emerald-500',

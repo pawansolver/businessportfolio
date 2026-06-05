@@ -10,6 +10,40 @@ export const siteConfig = {
   linkedin: "https://www.linkedin.com/in/pawan-kumar-7488pa",
   github: "#",
   bookCallUrl: "/#contact",
+
+  // ── SEO ──
+  // IMPORTANT: deploy ke baad apna real domain yahan daalo (ya .env mein NEXT_PUBLIC_SITE_URL set karo)
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.pawandev.com",
+  authorName: "Pawan Kumar",
+  jobTitle: "Full Stack Developer",
+  location: "India",
+  ogImage: "/tech-bg.png",
+  twitterHandle: "@pawandev",
+  description:
+    "Pawan Kumar — Independent Full Stack Developer in India. I build high-performance, SEO-friendly websites, web & mobile apps, hospital and institute websites, admin panels, and run data-driven digital marketing to grow your business online.",
+  keywords: [
+    "Full Stack Developer",
+    "Full Stack Developer India",
+    "Freelance Web Developer",
+    "Website Development",
+    "Next.js Developer",
+    "React Developer",
+    "Node.js Developer",
+    "Hospital Website Development",
+    "Institute Website Development",
+    "Business Website Development",
+    "E-commerce Development",
+    "Mobile App Development",
+    "Android App Developer",
+    "Admin Panel Development",
+    "API Integration",
+    "Digital Marketing",
+    "SEO Services",
+    "Google Ads",
+    "Lead Generation",
+    "Pawan Kumar Developer",
+    "Pawan.dev",
+  ],
 };
 
 export const navLinks: NavLink[] = [
