@@ -5,55 +5,69 @@ import Footer from "@/components/ui/flickering-footer";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import MouseGlow from "@/components/providers/MouseGlow";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
-import { siteConfig } from "@/data/site";
+import { siteConfig, eeatSignals } from "@/data/site";
 import { buildRootSchema } from "@/lib/schema";
 import "./globals.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Fonts — preloaded via next/font for zero layout shift
+// Fonts — next/font ensures zero layout shift (CLS), preloaded automatically
 // ─────────────────────────────────────────────────────────────────────────────
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+  preload: true,
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
 });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
   display: "swap",
+  preload: true,
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Global Metadata — applied to every page unless overridden by page-level
-// generateMetadata(). Next.js merges them with deep-merge (page wins).
+// Global Metadata
+// Page-level metadata (each page.tsx) deep-merges on top of this.
 // ─────────────────────────────────────────────────────────────────────────────
 const defaultTitle = `Pawan Kumar — Full Stack Developer | React, Node.js & MERN Stack`;
+const defaultDescription = siteConfig.description;
 
 export const metadata: Metadata = {
-  // ── Core ────────────────────────────────────────────────────────────────
+  // ── Core ──────────────────────────────────────────────────────────────────
   metadataBase: new URL(siteConfig.url),
   title: {
     default: defaultTitle,
     template: `%s | Pawan Kumar — Full Stack Developer`,
   },
-  description: siteConfig.description,
+  description: defaultDescription,
   keywords: siteConfig.keywords,
 
-  // ── Author / Publisher ──────────────────────────────────────────────────
-  authors: [{ name: siteConfig.authorName, url: siteConfig.url }],
+  // ── EEAT — Author / Publisher ──────────────────────────────────────────────
+  authors: [
+    {
+      name: siteConfig.authorName,
+      url: siteConfig.url,
+    },
+  ],
   creator: siteConfig.authorName,
   publisher: siteConfig.authorName,
   applicationName: siteConfig.name,
+  generator: "Next.js",
   category: "technology",
 
-  // ── Canonical ───────────────────────────────────────────────────────────
+  // ── Canonical & Hreflang ────────────────────────────────────────────────
   alternates: {
     canonical: "/",
-    languages: { "en-US": "/" },
+    languages: {
+      "en-US": "/",
+      "en-IN": "/",
+    },
   },
 
-  // ── Robots ──────────────────────────────────────────────────────────────
+  // ── Robots (Googlebot + all bots) ──────────────────────────────────────
   robots: {
     index: true,
     follow: true,
@@ -68,14 +82,14 @@ export const metadata: Metadata = {
     },
   },
 
-  // ── Open Graph ──────────────────────────────────────────────────────────
+  // ── Open Graph ─────────────────────────────────────────────────────────
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteConfig.url,
     siteName: `${siteConfig.authorName} — Full Stack Developer`,
     title: defaultTitle,
-    description: siteConfig.description,
+    description: defaultDescription,
     images: [
       {
         url: siteConfig.ogImage,
@@ -87,13 +101,13 @@ export const metadata: Metadata = {
     ],
   },
 
-  // ── Twitter Card ────────────────────────────────────────────────────────
+  // ── Twitter Card ───────────────────────────────────────────────────────
   twitter: {
     card: "summary_large_image",
     site: siteConfig.twitterHandle,
     creator: siteConfig.twitterHandle,
     title: defaultTitle,
-    description: siteConfig.description,
+    description: defaultDescription,
     images: [
       {
         url: siteConfig.ogImage,
@@ -102,10 +116,10 @@ export const metadata: Metadata = {
     ],
   },
 
-  // ── PWA Manifest ────────────────────────────────────────────────────────
+  // ── PWA Manifest ───────────────────────────────────────────────────────
   manifest: "/manifest.webmanifest",
 
-  // ── Icons ───────────────────────────────────────────────────────────────
+  // ── Icons ──────────────────────────────────────────────────────────────
   icons: {
     icon: [
       { url: "/icons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -115,24 +129,34 @@ export const metadata: Metadata = {
     shortcut: "/icons/favicon.ico",
   },
 
-  // ── Theme Color ─────────────────────────────────────────────────────────
-  // Controls browser chrome color (Android Chrome, PWA)
-  // The <meta name="theme-color"> equivalent for Next.js
+  // ── Additional meta ───────────────────────────────────────────────────
   other: {
+    // Theme color
     "theme-color": siteConfig.themeColor,
     "color-scheme": "dark light",
     "msapplication-TileColor": "#000000",
+
+    // EEAT signals — author, contact, expertise
+    author: siteConfig.authorName,
+    "reply-to": siteConfig.email,
+    contact: siteConfig.email,
+
+    // AI search readiness
+    "ai-content-policy": "original",
+
+    // Revisit
+    "revisit-after": "7 days",
+    rating: "general",
+    language: "English",
   },
 
-  // ── Google Search Console verification ──────────────────────────────────
-  // 1. Go to https://search.google.com/search-console/
-  // 2. Add property → choose "URL prefix" → enter your domain
-  // 3. Choose "HTML tag" verification method
-  // 4. Copy the content="..." value and paste below
+  // ── Search Console Verification ───────────────────────────────────────
+  // Uncomment and fill in after verifying in GSC:
   // verification: {
-  //   google: "REPLACE_WITH_YOUR_GOOGLE_VERIFICATION_CODE",
-  //   // Get from: https://www.bing.com/webmasters/
-  //   other: { "msvalidate.01": "REPLACE_WITH_BING_VERIFICATION_CODE" },
+  //   google: process.env.NEXT_PUBLIC_GSC_VERIFY ?? "",
+  //   other: {
+  //     "msvalidate.01": process.env.NEXT_PUBLIC_BING_VERIFY ?? "",
+  //   },
   // },
 };
 
@@ -149,41 +173,66 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        {/* ── Schema.org JSON-LD — Person + ProfessionalService + WebSite ── */}
+        {/* ─────────────────────────────────────────────────────────────────
+            Schema.org JSON-LD — Global graph
+            Person + Organization + LocalBusiness + WebSite + HowTo
+            All nodes cross-linked via @id for Knowledge Graph
+        ───────────────────────────────────────────────────────────────── */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(rootSchema) }}
         />
 
-        {/* ── Theme color meta (explicit, covers all browsers) ── */}
+        {/* ── Theme color (explicit — covers all browsers + Android) ── */}
         <meta name="theme-color" content={siteConfig.themeColor} />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content={siteConfig.themeColor} />
 
-        {/* ── Geographic targeting ── */}
+        {/* ── Geographic & Local SEO targeting ── */}
         <meta name="geo.region" content="IN" />
         <meta name="geo.country" content="India" />
         <meta name="geo.placename" content="India" />
         <meta name="ICBM" content="20.5937, 78.9629" />
 
-        {/* ── Language & Content type ── */}
-        <meta httpEquiv="content-language" content="en-us" />
-        <meta name="language" content="English" />
-        <meta name="revisit-after" content="7 days" />
-        <meta name="rating" content="general" />
-
-        {/* ── Additional author / contact info ── */}
+        {/* ── EEAT signals — author + contact authority ── */}
         <meta name="author" content={siteConfig.authorName} />
         <meta name="reply-to" content={siteConfig.email} />
         <meta name="contact" content={siteConfig.email} />
 
-        {/* ── Preconnect for performance (Google Fonts, Analytics, etc.) ── */}
+        {/* ── AI Search Optimization ──────────────────────────────────────
+            These meta tags help Google AI Overviews, Bing Copilot, Perplexity,
+            and ChatGPT understand the content authority and expertise.
+        ── */}
+        {/* Entity: who this person is — used by AI for card generation */}
+        <meta
+          name="description"
+          content={`${siteConfig.authorName} is a Full Stack Developer in India with ${eeatSignals.yearsOfExperience}+ years experience in React, Node.js, MERN Stack. ${eeatSignals.projectsCompleted}+ projects delivered. Available for freelance.`}
+        />
+
+        {/* ── Content signals ── */}
+        <meta name="revisit-after" content="7 days" />
+        <meta name="rating" content="general" />
+        <meta httpEquiv="content-language" content="en-us" />
+        <meta name="language" content="English" />
+
+        {/* ── Performance — preconnect to external origins ── */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect to Supabase for faster API responses */}
+        <link rel="preconnect" href="https://supabase.co" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
-        {/* ── Google Analytics 4 — replace GA_MEASUREMENT_ID ── */}
-        {/* 
+        {/* ── Google Analytics 4 ──────────────────────────────────────────
+            To activate:
+            1. Create GA4 property at analytics.google.com
+            2. Set NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX in .env.local
+            3. Uncomment the scripts below
+        ── */}
+        {/*
         <script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
         />
         <script
           dangerouslySetInnerHTML={{
@@ -191,9 +240,12 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'GA_MEASUREMENT_ID', {
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', {
                 page_path: window.location.pathname,
                 send_page_view: true,
+                anonymize_ip: true,
+                allow_google_signals: true,
+                allow_ad_personalization_signals: false,
               });
             `,
           }}
@@ -205,7 +257,9 @@ export default function RootLayout({
           <MouseGlow />
           <div className="relative z-10">
             <Header />
-            <main>{children}</main>
+            <main id="main-content" role="main">
+              {children}
+            </main>
             <Footer />
           </div>
           <WhatsAppButton />
