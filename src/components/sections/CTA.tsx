@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import FadeIn from "@/components/ui/FadeIn";
 import Button from "@/components/ui/Button";
+import BookCallModal from "@/components/ui/BookCallModal";
 
 export default function CTA() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <section className="relative overflow-hidden py-16 sm:py-24">
       <div className="gradient-orb left-1/2 top-1/2 h-72 w-72 sm:h-96 sm:w-96 -translate-x-1/2 -translate-y-1/2 bg-accent/10 animate-pulse-glow" />
@@ -26,7 +30,7 @@ export default function CTA() {
                 discuss your project.
               </p>
               <div className="mt-6 sm:mt-8">
-                <Button href="/#contact" size="lg">
+                <Button onClick={() => setModalOpen(true)} size="lg">
                   Start Your Project
                 </Button>
               </div>
@@ -34,6 +38,8 @@ export default function CTA() {
           </motion.div>
         </FadeIn>
       </div>
+
+      <BookCallModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 }

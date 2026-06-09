@@ -173,12 +173,15 @@ export default function BookCallModal({ open, onClose }: BookCallModalProps) {
                 </div>
 
                 {/* Phone display */}
-                <div className="flex items-center justify-center gap-2 rounded-xl bg-accent/5 border border-accent/15 px-4 py-3">
+                <a
+                  href={PHONE_TEL}
+                  className="flex items-center justify-center gap-2 rounded-xl bg-accent/5 border border-accent/15 px-4 py-3 hover:bg-accent/10 transition-colors"
+                >
                   <Phone size={14} className="text-accent" />
                   <span className="font-display text-base font-bold tracking-wider text-accent">
                     {PHONE_NUMBER}
                   </span>
-                </div>
+                </a>
               </div>
 
               {/* Bottom accent bar */}

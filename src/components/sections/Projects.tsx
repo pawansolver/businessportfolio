@@ -148,9 +148,10 @@ interface LightboxProps {
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
+  onSelectIndex: (index: number) => void;
 }
 
-function Lightbox({ images, index, title, onClose, onPrev, onNext }: LightboxProps) {
+function Lightbox({ images, index, title, onClose, onPrev, onNext, onSelectIndex }: LightboxProps) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     const handler = (e: KeyboardEvent) => {
@@ -248,6 +249,7 @@ function Lightbox({ images, index, title, onClose, onPrev, onNext }: LightboxPro
             {images.map((img, i) => (
               <div
                 key={i}
+                onClick={() => onSelectIndex(i)}
                 className={`relative h-11 w-18 flex-shrink-0 rounded-md overflow-hidden cursor-pointer transition-all duration-200 ${
                   i === index
                     ? "ring-2 ring-accent opacity-100 scale-105"
@@ -431,6 +433,7 @@ function ProjectDetail({
           onClose={() => setLbIndex(null)}
           onPrev={() => setLbIndex((p) => ((p ?? 0) - 1 + imgs.length) % imgs.length)}
           onNext={() => setLbIndex((p) => ((p ?? 0) + 1) % imgs.length)}
+          onSelectIndex={setLbIndex}
         />
       )}
     </>

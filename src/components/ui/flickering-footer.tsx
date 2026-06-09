@@ -343,11 +343,6 @@ export function FlickeringFooter() {
       {/* Copyright */}
       <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-3 px-8 py-5 text-xs text-text-secondary">
         <span>© {new Date().getFullYear()} Pawan Kumar. All rights reserved.</span>
-        <div className="flex items-center gap-4">
-          <Link href="/privacy" className="hover:text-accent transition-colors">Privacy</Link>
-          <Link href="/terms"   className="hover:text-accent transition-colors">Terms</Link>
-          <Link href="/#contact" className="hover:text-accent transition-colors">Contact</Link>
-        </div>
       </div>
 
       {/* Flickering grid banner */}
