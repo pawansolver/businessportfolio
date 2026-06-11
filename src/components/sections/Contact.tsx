@@ -45,14 +45,11 @@ export default function Contact() {
     setError(null);
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/contacts`,
-        {
+      const res = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formState),
-        }
-      );
+        });
 
       const data = await res.json();
 
