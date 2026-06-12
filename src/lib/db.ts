@@ -8,17 +8,19 @@ if (!process.env.DATABASE_URL) {
  * PostgreSQL connection pool — server-side only.
  * Use this ONLY in Next.js API routes (never in client components).
  *
- * Vercel serverless tip: pool.max = 1 avoids connection limit issues
- * since each function invocation is isolated.
+ * Vercel serverless: pool.max = 1 avoids connection limit issues.
+ * For Supabase on Vercel, use the Connection Pooler URL (port 6543)
+ * from Supabase Dashboard → Settings → Database → Connection Pooling → Transaction mode.
  */
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false, // Required for Supabase hosted PostgreSQL
   },
-  max: 1,             // 1 connection per serverless invocation
-  idleTimeoutMillis: 10000,
-  connectionTimeoutMillis: 5000,
+  max: 1,                        // 1 connection per serverless invocation
+  idleTimeoutMillis: 30000,      // close idle connections after 30s
+  connectionTimeoutMillis: 10000, // 10s timeout for Vercel cold starts
+  allowExitOnIdle: true,         // allow process to exit when pool is idle
 });
 
 export default pool;
